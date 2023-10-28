@@ -59,7 +59,7 @@ asm (
 	".size real_start, . - real_start\n\t"
 	".popsection");
 
-int main()
+int main(void)
 {
 	int nerrs = 0;
 
