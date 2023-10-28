@@ -166,7 +166,7 @@ static void test_syscall_fallthrough_to(unsigned long ip)
 	printf("[OK]\tWe survived\n");
 }
 
-int main()
+int main(void)
 {
 	/*
 	 * When the kernel returns from a slow-path syscall, it will
