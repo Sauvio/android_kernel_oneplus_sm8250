@@ -37,7 +37,7 @@ static void signal_handler(int sig)
 		fail = 1;
 }
 
-static int test_signal()
+static int test_signal(void)
 {
 	int i;
 	struct sigaction act;
