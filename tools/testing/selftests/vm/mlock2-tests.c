@@ -289,7 +289,7 @@ static int unlock_lock_check(char *map)
 	return 0;
 }
 
-static int test_mlock_lock()
+static int test_mlock_lock(void)
 {
 	char *map;
 	int ret = 1;
@@ -398,7 +398,7 @@ static int unlock_onfault_check(char *map)
 	return 0;
 }
 
-static int test_mlock_onfault()
+static int test_mlock_onfault(void)
 {
 	char *map;
 	int ret = 1;
@@ -440,7 +440,7 @@ out:
 	return ret;
 }
 
-static int test_lock_onfault_of_present()
+static int test_lock_onfault_of_present(void)
 {
 	char *map;
 	int ret = 1;
@@ -488,7 +488,7 @@ out:
 	return ret;
 }
 
-static int test_munlockall()
+static int test_munlockall(void)
 {
 	char *map;
 	int ret = 1;
