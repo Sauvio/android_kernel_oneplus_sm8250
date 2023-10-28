@@ -49,7 +49,7 @@ static void handler_without_siginfo(int sig)
 	handler_called = 1;
 }
 
-int main()
+int main(void)
 {
 	int nerrs = 0;
 	struct real_sigaction sa;
