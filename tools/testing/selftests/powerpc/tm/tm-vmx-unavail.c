@@ -86,7 +86,7 @@ success:
 	return NULL;
 }
 
-int tm_vmx_unavail_test()
+int tm_vmx_unavail_test(void)
 {
 	int threads;
 	pthread_t *thread;
