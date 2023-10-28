@@ -59,7 +59,7 @@ static void signal_usr1(int signum, siginfo_t *info, void *uc)
 	}
 }
 
-static int tm_signal_context_chk_fpu()
+static int tm_signal_context_chk_fpu(void)
 {
 	struct sigaction act;
 	int i;
