@@ -31,7 +31,8 @@ jobs:
         sudo apt install gcc-aarch64-linux-gnu -y
         sudo apt install gcc-arm-linux-gnueabi -y
         sudo apt install binutils make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
-        git clone https://codeberg.org/Mandi-Sa/clang --dept=1 -b amd64-kernel-arm
+        wget -O clang.tar.gz https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/5a89bea170d285b13f46fd2545f61077f1bf35cc.tar.gz
+        tar -C clang/ -zxvf clang.tar.gz
         git clone https://github.com/lateautumn233/AnyKernel3 -b master --depth=1
         rm -rf AnyKernel3/.git
     
