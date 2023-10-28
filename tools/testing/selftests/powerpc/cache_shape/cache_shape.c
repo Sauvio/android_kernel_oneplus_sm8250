@@ -52,7 +52,7 @@ static void print_geo(const char *label, uint32_t val)
 	printf(" associative\n");
 }
 
-static int test_cache_shape()
+static int test_cache_shape(void)
 {
 	static char buffer[4096];
 	ElfW(auxv_t) *p;
