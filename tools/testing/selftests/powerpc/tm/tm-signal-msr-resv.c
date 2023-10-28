@@ -46,7 +46,7 @@ void signal_usr1(int signum, siginfo_t *info, void *uc)
 	segv_expected = 1;
 }
 
-int tm_signal_msr_resv()
+int tm_signal_msr_resv(void)
 {
 	struct sigaction act;
 
