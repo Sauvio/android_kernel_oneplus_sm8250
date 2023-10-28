@@ -96,7 +96,7 @@ void texasr(void *in)
 	return;
 }
 
-int test_tmspr()
+int test_tmspr(void)
 {
 	pthread_t	*thread;
 	int	   	thread_num;
