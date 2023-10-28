@@ -17,7 +17,7 @@
 static int gcfg_index = 0;
 static struct iris_cfg gcfg[IRIS_CFG_NUM] = {};
 
-int iris_wait_vsync()
+int iris_wait_vsync(void)
 {
 	struct iris_cfg *pcfg = &gcfg[gcfg_index];
 	struct drm_encoder *drm_enc;
