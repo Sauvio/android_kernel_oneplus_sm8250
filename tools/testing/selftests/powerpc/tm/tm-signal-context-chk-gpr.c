@@ -57,7 +57,7 @@ static void signal_usr1(int signum, siginfo_t *info, void *uc)
 	}
 }
 
-static int tm_signal_context_chk_gpr()
+static int tm_signal_context_chk_gpr(void)
 {
 	struct sigaction act;
 	int i;
