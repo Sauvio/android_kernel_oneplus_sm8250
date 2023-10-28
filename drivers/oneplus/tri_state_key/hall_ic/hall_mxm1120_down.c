@@ -1114,7 +1114,7 @@ static void m1120_dump_reg(u8* buf)
 	return;
 }
 
-static bool m1120_is_power_on()
+static bool m1120_is_power_on(void)
 {
     printk(KERN_INFO "  %s", __func__);
     if (p_m1120_data == NULL) {
