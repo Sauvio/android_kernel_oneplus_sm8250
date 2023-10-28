@@ -187,7 +187,7 @@ struct {
 	int sz;
 } sigmask_desc;
 
-void prep_args()
+void prep_args(void)
 {
 	nfds = 42;
 	FD_ZERO(&rfds);
@@ -328,7 +328,7 @@ int run_syscall(void)
 	return check_regs64();
 }
 
-int run_syscall_twice()
+int run_syscall_twice(void)
 {
 	int exitcode = 0;
 	long sv;
@@ -345,7 +345,7 @@ int run_syscall_twice()
 	return exitcode;
 }
 
-void ptrace_me()
+void ptrace_me(void)
 {
 	pid_t pid;
 
