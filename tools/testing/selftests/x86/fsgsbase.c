@@ -178,7 +178,7 @@ static volatile unsigned int ftx;
  */
 #define HARD_ZERO 0xa1fa5f343cb85fa4
 
-static void do_remote_base()
+static void do_remote_base(void)
 {
 	unsigned long to_set = remote_base;
 	bool hard_zero = false;
@@ -367,7 +367,7 @@ static void test_unexpected_base(void)
 	}
 }
 
-int main()
+int main(void)
 {
 	pthread_t thread;
 
