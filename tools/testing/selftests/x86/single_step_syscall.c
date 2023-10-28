@@ -117,7 +117,7 @@ static void check_result(void)
 	sig_traps = 0;
 }
 
-int main()
+int main(void)
 {
 #ifdef CAN_BUILD_32
 	int tmp;
