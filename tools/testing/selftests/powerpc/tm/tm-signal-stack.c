@@ -30,7 +30,7 @@ void signal_segv(int signum)
 	exit(1);
 }
 
-int tm_signal_stack()
+int tm_signal_stack(void)
 {
 	int pid;
 
