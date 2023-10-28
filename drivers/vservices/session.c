@@ -332,7 +332,7 @@ static void __try_start_service(struct vs_service_device *service)
 	}
 
 	/* Prepare the transport to support the service. */
-	transport = &session->transport;
+	transport = session->transport;
 	err = transport->vt->service_start(transport, service);
 
 	if (err < 0) {
@@ -1904,10 +1904,10 @@ int vs_session_handle_message(struct vs_session_device *session,
 		struct vs_mbuf *mbuf, vs_service_id_t service_id)
 {
 	struct vs_service_device *service;
-	struct vs_transport *transport;
+	/* struct vs_transport *transport; */
 	unsigned long flags;
 
-	transport = &session->transport;
+	/* transport = session->transport; */
 
 	service = vs_session_get_service(session, service_id);
 	if (!service) {
