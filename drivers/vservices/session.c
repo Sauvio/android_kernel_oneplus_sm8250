@@ -332,7 +332,7 @@ static void __try_start_service(struct vs_service_device *service)
 	}
 
 	/* Prepare the transport to support the service. */
-	transport->session->transport;
+	transport = &session->transport;
 	err = transport->vt->service_start(transport, service);
 
 	if (err < 0) {
@@ -458,7 +458,7 @@ static void __reset_service(struct vs_service_device *service,
 
 	wake_up_all(&service->quota_wq);
 
-	transport->vs_service_get_session(service)->transport;
+	transport = vs_service_get_session(service)->transport;
 
 	/*
 	 * Ask the transport to reset the service. If this returns a positive
@@ -1907,7 +1907,7 @@ int vs_session_handle_message(struct vs_session_device *session,
 	struct vs_transport *transport;
 	unsigned long flags;
 
-	transport->session->transport;
+	transport = &session->transport;
 
 	service = vs_session_get_service(session, service_id);
 	if (!service) {
