@@ -1035,7 +1035,7 @@ static int m1120_clear_irq(void)
     return 0;
 }
 
-static int m1120_get_irq_state()
+static int m1120_get_irq_state(void)
 {
     printk(KERN_INFO "  %s", __func__);
     if(p_m1120_data == NULL) {
