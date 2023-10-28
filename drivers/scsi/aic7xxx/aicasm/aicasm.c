@@ -305,7 +305,7 @@ main(int argc, char *argv[])
 }
 
 static void
-usage()
+usage(void)
 {
 
 	(void)fprintf(stderr,
@@ -317,7 +317,7 @@ usage()
 }
 
 static void
-back_patch()
+back_patch(void)
 {
 	struct instruction *cur_instr;
 
@@ -346,7 +346,7 @@ back_patch()
 }
 
 static void
-output_code()
+output_code(void)
 {
 	struct instruction *cur_instr;
 	patch_t *cur_patch;
