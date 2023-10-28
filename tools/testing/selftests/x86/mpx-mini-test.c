@@ -714,7 +714,7 @@ bool process_specific_finish(void)
 	return true;
 }
 
-void setup_handler()
+void setup_handler(void)
 {
 	int r, rs;
 	struct sigaction newact;
@@ -829,7 +829,7 @@ static __always_inline void mpx_check_upperbound_helper(unsigned long ptr)
 		     :   "memory");
 }
 
-static __always_inline void mpx_movbndreg_helper()
+static __always_inline void mpx_movbndreg_helper(void)
 {
 	/* 66 0F 1B /r	BNDMOV bnd1/m128, bnd2	*/
 	/* 66 0f 1b c2	bndmov %bnd0,%bnd2	*/
@@ -898,7 +898,7 @@ void __print_context(void *__print_xsave_buffer, int line)
 #define dprint_context(x) do{}while(0)
 #endif
 
-void init()
+void init(void)
 {
 	int i;
 
