@@ -407,7 +407,7 @@ static void test_restart_under_ptrace(void)
 		err(1, "waitpid");
 }
 
-int main()
+int main(void)
 {
 	printf("[RUN]\tCheck int80 return regs\n");
 	test_sys32_regs(do_full_int80);
