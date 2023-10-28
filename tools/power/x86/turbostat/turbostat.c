@@ -1994,7 +1994,7 @@ int skx_pkg_cstate_limits[16] = {PCL__0, PCL__2, PCL_6N, PCL_6R, PCLRSV, PCLRSV,
 
 
 static void
-calculate_tsc_tweak()
+calculate_tsc_tweak(void)
 {
 	tsc_tweak = base_hz / tsc_hz;
 }
@@ -2973,7 +2973,7 @@ void do_sleep(void)
 }
 
 
-void turbostat_loop()
+void turbostat_loop(void)
 {
 	int retval;
 	int restarted = 0;
@@ -3054,7 +3054,7 @@ restart:
 	}
 }
 
-void check_dev_msr()
+void check_dev_msr(void)
 {
 	struct stat sb;
 	char pathname[32];
@@ -3065,7 +3065,7 @@ void check_dev_msr()
 			err(-5, "no /dev/cpu/0/msr, Try \"# modprobe msr\" ");
 }
 
-void check_permissions()
+void check_permissions(void)
 {
 	struct __user_cap_header_struct cap_header_data;
 	cap_user_header_t cap_header = &cap_header_data;
@@ -4460,7 +4460,7 @@ void decode_c6_demotion_policy_msr(void)
 			base_cpu, msr, msr & (1 << 0) ? "EN" : "DIS");
 }
 
-void process_cpuid()
+void process_cpuid(void)
 {
 	unsigned int eax, ebx, ecx, edx;
 	unsigned int fms, family, model, stepping, ecx_flags, edx_flags;
@@ -4771,7 +4771,7 @@ int open_dev_cpu_msr(int dummy1)
 	return 0;
 }
 
-void topology_probe()
+void topology_probe(void)
 {
 	int i;
 	int max_core_id = 0;
@@ -4979,7 +4979,7 @@ int initialize_counters(int cpu_id)
 	return 0;
 }
 
-void allocate_output_buffer()
+void allocate_output_buffer(void)
 {
 	output_buffer = calloc(1, (1 + topo.num_cpus) * 2048);
 	outp = output_buffer;
@@ -5023,7 +5023,7 @@ void set_base_cpu(void)
 		fprintf(outf, "base_cpu = %d\n", base_cpu);
 }
 
-void turbostat_init()
+void turbostat_init(void)
 {
 	setup_all_buffers();
 	set_base_cpu();
