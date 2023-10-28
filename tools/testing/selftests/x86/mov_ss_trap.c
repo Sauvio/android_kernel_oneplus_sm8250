@@ -141,7 +141,7 @@ static void handle_and_longjmp(int sig, siginfo_t *si, void *ctx_void)
 	siglongjmp(jmpbuf, 1);
 }
 
-int main()
+int main(void)
 {
 	unsigned long nr;
 
