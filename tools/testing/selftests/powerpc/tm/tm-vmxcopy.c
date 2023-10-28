@@ -32,7 +32,7 @@
 #include "tm.h"
 #include "utils.h"
 
-int test_vmxcopy()
+int test_vmxcopy(void)
 {
 	long double vecin = 1.3;
 	long double vecout;
