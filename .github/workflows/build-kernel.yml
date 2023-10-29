@@ -40,7 +40,7 @@ jobs:
         tar -C gcc32/ -zxvf gcc32.tar.gz
         wget -O gcc64.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/heads/android11-mainline-release/bin.tar.gz
         mkdir gcc64
-        tar -C gcc64 -zxvf gcc64.tar.gz
+        tar -C gcc64/ -zxvf gcc64.tar.gz
         git clone https://github.com/lateautumn233/AnyKernel3 -b master --depth=1
         rm -rf AnyKernel3/.git
     
