@@ -30,10 +30,13 @@ jobs:
         sudo apt-get update -y 
         sudo apt install gcc-aarch64-linux-gnu -y
         sudo apt install gcc-arm-linux-gnueabi -y
-        sudo apt install binutils make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
+        sudo apt install make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
         wget -O clang.tar.gz https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android11-mainline-release/clang-r370808.tar.gz
         mkdir clang
         tar -C clang/ -zxvf clang.tar.gz
+        wget -O binutils.tar.gz https://android.googlesource.com/toolchain/binutils/+archive/refs/heads/pie-release/binutils-2.27.tar.gz
+        mkdir binutils
+        tar -C binutils/ -zxvf binutils.tar.gz
         git clone https://github.com/lateautumn233/AnyKernel3 -b master --depth=1
         rm -rf AnyKernel3/.git
     
@@ -44,7 +47,7 @@ jobs:
 
     - name: Build Kernel
       run: |
-       export PATH=$(pwd)/clang/bin/:$PATH
+       export PATH=$(pwd)/binutils/bin:$(pwd)/clang/bin/:$PATH
        export ARCH=arm64
        export SUBARCH=arm64
        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
