@@ -14,7 +14,7 @@ jobs:
       CCACHE_MAXSIZE: "2G"
       CCACHE_HARDLINK: "true"
       KERNEL_DEFCONFIG: "vendor/kona-perf_defconfig"
-      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1 O=out"
+      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi- CLANG_TRIPLE=aarch64-linux-gnu- LLVM=1 LLVM_IAS=1 O=out"
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -28,8 +28,6 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update -y 
-        sudo apt install gcc-aarch64-linux-gnu -y
-        sudo apt install gcc-arm-linux-gnueabi -y
         sudo apt install make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
         wget -O clang.tar.gz https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android11-mainline-release/clang-r370808.tar.gz
         mkdir clang
@@ -37,6 +35,12 @@ jobs:
         wget -O binutils.tar.gz https://android.googlesource.com/toolchain/binutils/+archive/refs/heads/pie-release/binutils-2.27.tar.gz
         mkdir binutils
         tar -C binutils/ -zxvf binutils.tar.gz
+        wget -O gcc32.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/+archive/refs/heads/android11-mainline-release.tar.gz
+        mkdir gcc32
+        tar -C gcc32/ -zxvf gcc32.tar.gz
+        wget -O gcc64.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/heads/android11-mainline-release/bin.tar.gz
+        mkdir gcc64
+        tar -C gcc64 -zxvf gcc64.tar.gz
         git clone https://github.com/lateautumn233/AnyKernel3 -b master --depth=1
         rm -rf AnyKernel3/.git
     
@@ -47,7 +51,7 @@ jobs:
 
     - name: Build Kernel
       run: |
-       export PATH=$(pwd)/binutils/bin:$(pwd)/clang/bin/:$PATH
+       export PATH=$(pwd)/gcc32/bin:$(pwd)/gcc64/bin:$(pwd)/binutils/bin:$(pwd)/clang/bin/:$PATH
        export ARCH=arm64
        export SUBARCH=arm64
        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
