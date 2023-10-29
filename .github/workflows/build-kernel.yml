@@ -51,7 +51,7 @@ jobs:
 
     - name: Build Kernel
       run: |
-       export PATH=$(pwd)/clang/bin/:$(pwd)/gcc64/bin:$(pwd)/gcc32/bin:$(pwd)/binutils/bin:$PATH
+       export PATH=$(pwd)/clang/bin/:$(pwd)/gcc64/aarch64-linux-android/bin:$(pwd)/gcc32/arm-linux-androideabi/bin:$(pwd)/binutils/bin:$PATH
        export ARCH=arm64
        export SUBARCH=arm64
        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
@@ -67,7 +67,7 @@ jobs:
     - name: Build Kernel-SU
       run: |
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-        export PATH=$(pwd)/clang/bin/:$(pwd)/gcc64/bin:$(pwd)/gcc32/bin:$(pwd)/binutils/bin:$PATH
+        export PATH=$(pwd)/clang/bin/:$(pwd)/gcc64/aarch64-linux-android/bin:$(pwd)/gcc32/arm-linux-androideabi/bin:$(pwd)/binutils/bin:$PATH
         make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
         make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
         cp out/arch/arm64/boot/Image.gz AnyKernel3
