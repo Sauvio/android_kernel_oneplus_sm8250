@@ -2,9 +2,7 @@ name: Build OnePlus-Sm8250-Kernel
 on:
   watch:
     types: [started]
-
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,33 +12,24 @@ jobs:
       CCACHE_MAXSIZE: "2G"
       CCACHE_HARDLINK: "true"
       KERNEL_DEFCONFIG: "vendor/kona-perf_defconfig"
-      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc32/bin/arm-linux-androideabi- CLANG_TRIPLE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc32/bin/arm-linux-androideabi- O=out"
+      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- CLANG_TRIPLE=aarch64-linux-gnu- O=out"
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
         submodules: 'true'
         fetch-depth: 100
-
     - name: Set up ccache
       uses: hendrikmuhs/ccache-action@v1.2
-
     - name: Install dependencies
       run: |
         sudo apt-get update -y 
-        sudo apt install make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
+        sudo apt install gcc-aarch64-linux-gnu -y
+        sudo apt install gcc-arm-linux-gnueabi -y
+        sudo apt install binutils make python3 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs -y
         wget -O clang.tar.gz https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android11-mainline-release/clang-r370808.tar.gz
         mkdir clang
         tar -C clang/ -zxvf clang.tar.gz
-        wget -O binutils.tar.gz https://android.googlesource.com/toolchain/binutils/+archive/refs/heads/pie-release/binutils-2.27.tar.gz
-        mkdir binutils
-        tar -C binutils/ -zxvf binutils.tar.gz
-        wget -O gcc32.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/+archive/refs/heads/android11-mainline-release.tar.gz
-        mkdir gcc32
-        tar -C gcc32/ -zxvf gcc32.tar.gz
-        wget -O gcc64.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/heads/android11-mainline-release/bin.tar.gz
-        mkdir gcc64
-        tar -C gcc64/ -zxvf gcc64.tar.gz
         git clone https://github.com/lateautumn233/AnyKernel3 -b master --depth=1
         rm -rf AnyKernel3/.git
     
@@ -48,31 +37,26 @@ jobs:
       id: get_time
       run: |
         echo "TIME=$(TZ=UTC-8 date +%m%d%H%M )" >> $GITHUB_OUTPUT
-
     - name: Build Kernel
       run: |
-       export PATH=$(pwd)/clang/bin/:$(pwd)/gcc64/bin:$(pwd)/gcc32/bin::$PATH
+       export PATH=$(pwd)/clang/bin/:$PATH
        export ARCH=arm64
        export SUBARCH=arm64
-       gcc --version
        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
        make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
        cp out/arch/arm64/boot/Image.gz AnyKernel3
-
     - name: Upload Kernel
       uses: actions/upload-artifact@v3
       with:
         name: oplus-kernel-${{ steps.get_time.outputs.TIME }}
         path: "AnyKernel3/*"
-
     - name: Build Kernel-SU
       run: |
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-        export PATH=$(pwd)/clang/bin/:$(pwd)/binutils/bin:$PATH
+        export PATH=$(pwd)/clang/bin/:$PATH
         make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
         make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
         cp out/arch/arm64/boot/Image.gz AnyKernel3
-
     - name: Upload Kernel-SU
       uses: actions/upload-artifact@v3
       with:
