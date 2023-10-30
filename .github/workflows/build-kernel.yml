@@ -14,7 +14,7 @@ jobs:
       CCACHE_MAXSIZE: "2G"
       CCACHE_HARDLINK: "true"
       KERNEL_DEFCONFIG: "vendor/kona-perf_defconfig"
-      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi- CLANG_TRIPLE=aarch64-linux-gnu- GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc32/bin/arm-linux-androideabi- O=out"
+      KERNEL_CMDLINE: "ARCH=arm64 CROSS_COMPILE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc32/bin/arm-linux-androideabi- CLANG_TRIPLE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/gcc64/bin/aarch64-linux-android- GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/gcc32/bin/arm-linux-androideabi- O=out"
     steps:
     - name: Checkout
       uses: actions/checkout@v3
